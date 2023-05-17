@@ -72,12 +72,12 @@ def execute_lpt_with_job_swapping(sorted_weights, m, n, u, t):
     assigned_jobs = [None] * n
 
     for weight in sorted_weights:
-        job_index = weights.index(weight)
+        job_index = sorted_weights.index(weight)
         machine_index = machines.index(min(machines))
         machines[machine_index] += u[job_index]
         assigned_jobs[job_index] = machine_index
 
-    iterations = int(input("Введіть кількість ітерацій переставляння робіт з однієї мащини на іншу: "))
+    iterations = int(input("Введіть кількість ітерацій переставляння робіт з однієї машини на іншу: "))
     improved = True
 
     while iterations > 0 and improved:
@@ -86,15 +86,16 @@ def execute_lpt_with_job_swapping(sorted_weights, m, n, u, t):
         for i in range(n):
             for j in range(i + 1, n):
                 if assigned_jobs[i] != assigned_jobs[j]:
-                    current_time = max(machines[assigned_jobs[i]], machines[assigned_jobs[j]])
-                    new_time_i = current_time + u[j]
-                    new_time_j = current_time + u[i]
-
-                    if new_time_i <= machines[assigned_jobs[j]] and new_time_j <= machines[assigned_jobs[i]]:
-                        machines[assigned_jobs[i]] -= u[i]
+                    if assigned_jobs[i] is not None and assigned_jobs[j] is not None:
+                       current_time = max(machines[assigned_jobs[i]], machines[assigned_jobs[j]])
+                    new_time_i = current_time + u[job_index] 
+                    new_time_j = current_time + u[j]
+                    if assigned_jobs[i] is not None and assigned_jobs[j] is not None:
+                      if new_time_i <= machines[assigned_jobs[j]] and new_time_j <= machines[assigned_jobs[i]]:
+                        machines[assigned_jobs[i]] -= u[job_index]
                         machines[assigned_jobs[j]] -= u[j]
                         machines[assigned_jobs[i]] += u[j]
-                        machines[assigned_jobs[j]] += u[i]
+                        machines[assigned_jobs[j]] += u[job_index]
                         assigned_jobs[i], assigned_jobs[j] = assigned_jobs[j], assigned_jobs[i]
                         improved = True
 
@@ -114,13 +115,15 @@ def print_results_lpt_with_job_swapping(assigned_jobs, u, t):
 
     print("Загальний час роботи бригад (в годинах):", max_machine_time)
     print("Середній час перебування громадян без світла при виконанні LPT алгоритму з перестановкою робіт з однієї машини на іншу:", average_time)
-# Крок 8
+
+
+    # Крок 8
 def execute_lpt_with_pairwise_swapping(sorted_weights, m, n, u, t):
     machines = [0] * m
     assigned_jobs = [None] * n
 
     for weight in sorted_weights:
-        job_index = weights.index(weight)
+        job_index = sorted_weights.index(weight)
         machine_index = machines.index(min(machines))
         machines[machine_index] += u[job_index]
         assigned_jobs[job_index] = machine_index
@@ -133,16 +136,17 @@ def execute_lpt_with_pairwise_swapping(sorted_weights, m, n, u, t):
 
         for i in range(n):
             for j in range(i + 1, n):
-                if assigned_jobs[i] != assigned_jobs[j]:
+                if assigned_jobs[i] is not None and assigned_jobs[j] is not None:
+                 if assigned_jobs[i] != assigned_jobs[j]:
                     current_time = max(machines[assigned_jobs[i]], machines[assigned_jobs[j]])
-                    new_time_i = current_time + u[j]
-                    new_time_j = current_time + u[i]
-
-                    if new_time_i <= machines[assigned_jobs[j]] and new_time_j <= machines[assigned_jobs[i]]:
-                        machines[assigned_jobs[i]] -= u[i]
+                    new_time_i = current_time + u[job_index]
+                    new_time_j = current_time + u[j]
+                    if assigned_jobs[i] is not None and assigned_jobs[j] is not None:
+                     if new_time_i <= machines[assigned_jobs[j]] and new_time_j <= machines[assigned_jobs[i]]:
+                        machines[assigned_jobs[i]] -= u[job_index]
                         machines[assigned_jobs[j]] -= u[j]
                         machines[assigned_jobs[i]] += u[j]
-                        machines[assigned_jobs[j]] += u[i]
+                        machines[assigned_jobs[j]] += u[job_index]
                         assigned_jobs[i], assigned_jobs[j] = assigned_jobs[j], assigned_jobs[i]
                         improved = True
 
@@ -153,7 +157,6 @@ def execute_lpt_with_pairwise_swapping(sorted_weights, m, n, u, t):
         print("Машина", i + 1, "виконує роботи:", machine_jobs)
 
     return assigned_jobs
-
 
 # Крок 9
 def print_results_lpt_with_pairwise_swapping(assigned_jobs, u, t):
@@ -170,13 +173,14 @@ def execute_lpt_with_job_and_pairwise_swapping(sorted_weights, m, n, u, t):
     assigned_jobs = [None] * n
 
     for weight in sorted_weights:
-        job_index = weights.index(weight)
+        job_index = sorted_weights.index(weight)
         machine_index = machines.index(min(machines))
         machines[machine_index] += u[job_index]
         assigned_jobs[job_index] = machine_index
 
-    iterations_job_swapping = int(input("Введіть кількість ітерацій переставляння робіт: "))
+    iterations_job_swapping = int(input("Введіть кількість ітерацій переставляння робіт з однієї машини на іншу: "))
     iterations_pairwise_swapping = int(input("Введіть кількість ітерацій попарних переставлянь робіт: "))
+
     improved = True
 
     while iterations_job_swapping > 0 and improved:
@@ -184,16 +188,17 @@ def execute_lpt_with_job_and_pairwise_swapping(sorted_weights, m, n, u, t):
 
         for i in range(n):
             for j in range(i + 1, n):
-                if assigned_jobs[i] != assigned_jobs[j]:
+                if assigned_jobs[i] is not None and assigned_jobs[j] is not None:
+                 if assigned_jobs[i] != assigned_jobs[j]:
                     current_time = max(machines[assigned_jobs[i]], machines[assigned_jobs[j]])
-                    new_time_i = current_time + u[j]
-                    new_time_j = current_time + u[i]
-
-                    if new_time_i <= machines[assigned_jobs[j]] and new_time_j <= machines[assigned_jobs[i]]:
-                        machines[assigned_jobs[i]] -= u[i]
+                    new_time_i = current_time + u[job_index]
+                    new_time_j = current_time + u[j]
+                    if assigned_jobs[i] is not None and assigned_jobs[j] is not None:
+                     if new_time_i <= machines[assigned_jobs[j]] and new_time_j <= machines[assigned_jobs[i]]:
+                        machines[assigned_jobs[i]] -= u[job_index]
                         machines[assigned_jobs[j]] -= u[j]
                         machines[assigned_jobs[i]] += u[j]
-                        machines[assigned_jobs[j]] += u[i]
+                        machines[assigned_jobs[j]] += u[job_index]
                         assigned_jobs[i], assigned_jobs[j] = assigned_jobs[j], assigned_jobs[i]
                         improved = True
 
@@ -206,15 +211,18 @@ def execute_lpt_with_job_and_pairwise_swapping(sorted_weights, m, n, u, t):
 
         for i in range(n):
             for j in range(i + 1, n):
-                if assigned_jobs[i] != assigned_jobs[j]:
+                if assigned_jobs[i] is not None and assigned_jobs[j] is not None:
+                 if assigned_jobs[i] != assigned_jobs[j]:
                     current_time = max(machines[assigned_jobs[i]], machines[assigned_jobs[j]])
-                    new_time_i = current_time + u[j]
-                    new_time_j = current_time + u[i]
-                    if new_time_i <= machines[assigned_jobs[j]] and new_time_j <= machines[assigned_jobs[i]]:
-                        machines[assigned_jobs[i]] -= u[i]
+                    new_time_i = current_time + u[job_index]
+                    new_time_j = current_time + u[j]
+
+                    if assigned_jobs[i] is not None and assigned_jobs[j] is not None:
+                     if new_time_i <= machines[assigned_jobs[j]] and new_time_j <= machines[assigned_jobs[i]]:
+                        machines[assigned_jobs[i]] -= u[job_index]
                         machines[assigned_jobs[j]] -= u[j]
                         machines[assigned_jobs[i]] += u[j]
-                        machines[assigned_jobs[j]] += u[i]
+                        machines[assigned_jobs[j]] += u[job_index]
                         assigned_jobs[i], assigned_jobs[j] = assigned_jobs[j], assigned_jobs[i]
                         improved = True
 
@@ -225,7 +233,6 @@ def execute_lpt_with_job_and_pairwise_swapping(sorted_weights, m, n, u, t):
         print("Машина", i + 1, "виконує роботи:", machine_jobs)
 
     return assigned_jobs
-
 
 # Крок 11
 def print_results_lpt_with_job_and_pairwise_swapping(assigned_jobs, u, t):
