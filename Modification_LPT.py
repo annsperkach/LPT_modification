@@ -1,4 +1,5 @@
 import random
+import time
 
 # Крок 1
 def input_data():
@@ -29,7 +30,7 @@ def input_data():
 def calculate_weight(u, t):
     global weights
     weights = [t[i] / u[i] for i in range(len(u))]
-    print("\nweights =", weights)
+    print("weights =", weights)
     return weights
 
 
@@ -37,12 +38,13 @@ def calculate_weight(u, t):
 def sort_weights(weights):
     global sorted_weights
     sorted_weights = sorted(weights, reverse=True)
-    print("\nsorted_weights =", sorted_weights)
+    print("sorted_weights =", sorted_weights)
     return sorted_weights
 
 
 # Крок 4
 def execute_lpt(sorted_weights, m, n, u, t):
+    start_time = time.time()
     machines = [0] * m
     assigned_jobs = [0] * n
 
@@ -55,6 +57,10 @@ def execute_lpt(sorted_weights, m, n, u, t):
     for i in range(m):
         machine_jobs = [job_index+1 for job_index, machine_index in enumerate(assigned_jobs) if machine_index == i]
         print("Машина", i + 1, "виконує роботи:", machine_jobs)
+
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print("\nЧас виконання алгоритму: ", execution_time ," секунд")    
 
     return assigned_jobs
 
@@ -64,12 +70,13 @@ def print_results_lpt(assigned_jobs, u, t, m):
     max_machine_time = max([sum([t[job_index] for job_index, machine_index in enumerate(assigned_jobs) if machine_index == i]) for i in range(m)])
     average_time = sum([t[i] * u[i] for i in range(len(u))]) / sum(u)
 
-    print("\nЗагальний час роботи бригад (в годинах):", max_machine_time)
+    print("Загальний час роботи бригад (в годинах):", max_machine_time)
     print("Середній час перебування громадян без світла при виконанні LPT алгоритму без модифікацій:", average_time)
 
 
 # Крок 6
 def execute_lpt_with_job_swapping(sorted_weights, m, n, u, t):
+    start_time = time.time()
     machines = [0] * m
     assigned_jobs = [0] * n
 
@@ -79,7 +86,11 @@ def execute_lpt_with_job_swapping(sorted_weights, m, n, u, t):
         machines[machine_index] += u[job_index]
         assigned_jobs[job_index] = machine_index
 
-    iterations = int(input("\nВведіть кількість ітерацій переставляння робіт з однієї мащини на іншу: "))
+    for i in range(m):
+        machine_jobs = [job_index+1 for job_index, machine_index in enumerate(assigned_jobs) if machine_index == i]
+        print("Машина", i + 1, "виконує роботи:", machine_jobs)    
+
+    iterations = int(input("Введіть кількість ітерацій переставляння робіт з однієї мащини на іншу: "))
     improved = True
 
     while iterations > 0 and improved:
@@ -105,6 +116,10 @@ def execute_lpt_with_job_swapping(sorted_weights, m, n, u, t):
     for i in range(m):
         machine_jobs = [job_index+1 for job_index, machine_index in enumerate(assigned_jobs) if machine_index == i]
         print("Машина", i + 1, "виконує роботи:", machine_jobs)
+
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print("\nЧас виконання алгоритму: ", execution_time ," секунд")       
 
     return assigned_jobs
 
@@ -114,11 +129,12 @@ def print_results_lpt_with_job_swapping(assigned_jobs, u, t, m):
     max_machine_time = max([sum([t[job_index] for job_index, machine_index in enumerate(assigned_jobs) if machine_index == i]) for i in range(m)])
     average_time = sum([t[i] * u[i] for i in range(len(u))]) / sum(u)
 
-    print("\nЗагальний час роботи бригад (в годинах):", max_machine_time)
+    print("Загальний час роботи бригад (в годинах):", max_machine_time)
     print("Середній час перебування громадян без світла при виконанні LPT алгоритму з перестановкою робіт з однієї машини на іншу:", average_time)
 
 # Крок 8
 def execute_lpt_with_pairwise_swapping(sorted_weights, m, n, u, t):
+    start_time = time.time()
     machines = [0] * m
     assigned_jobs = [0] * n
 
@@ -128,7 +144,11 @@ def execute_lpt_with_pairwise_swapping(sorted_weights, m, n, u, t):
         machines[machine_index] += u[job_index]
         assigned_jobs[job_index] = machine_index
 
-    iterations = int(input("\nВведіть кількість ітерацій попарних переставлянь робіт: "))
+    for i in range(m):
+        machine_jobs = [job_index+1 for job_index, machine_index in enumerate(assigned_jobs) if machine_index == i]
+        print("Машина", i + 1, "виконує роботи:", machine_jobs)    
+
+    iterations = int(input("Введіть кількість ітерацій попарних переставлянь робіт: "))
     improved = True
 
     while iterations > 0 and improved:
@@ -155,6 +175,10 @@ def execute_lpt_with_pairwise_swapping(sorted_weights, m, n, u, t):
         machine_jobs = [job_index+1 for job_index, machine_index in enumerate(assigned_jobs) if machine_index == i]
         print("Машина", i + 1, "виконує роботи:", machine_jobs)
 
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print("\nЧас виконання алгоритму: ", execution_time ," секунд")       
+
     return assigned_jobs
 
 
@@ -163,12 +187,13 @@ def print_results_lpt_with_pairwise_swapping(assigned_jobs, u, t, m):
     max_machine_time = max([sum([t[job_index] for job_index, machine_index in enumerate(assigned_jobs) if machine_index == i]) for i in range(m)])
     average_time = sum([t[i] * u[i] for i in range(len(u))]) / sum(u)
 
-    print("\nЗагальний час роботи бригад (в годинах):", max_machine_time)
+    print("Загальний час роботи бригад (в годинах):", max_machine_time)
     print("Середній час перебування громадян без світла при виконанні LPT алгоритму з попарними перестановками робіт:", average_time)
 
 
 # Крок 10
 def execute_lpt_with_job_and_pairwise_swapping(sorted_weights, m, n, u, t):
+    start_time = time.time()
     machines = [0] * m
     assigned_jobs = [0] * n
 
@@ -178,7 +203,11 @@ def execute_lpt_with_job_and_pairwise_swapping(sorted_weights, m, n, u, t):
         machines[machine_index] += u[job_index]
         assigned_jobs[job_index] = machine_index
 
-    iterations_job_swapping = int(input("\nВведіть кількість ітерацій переставляння робіт: "))
+    for i in range(m):
+        machine_jobs = [job_index+1 for job_index, machine_index in enumerate(assigned_jobs) if machine_index == i]
+        print("Машина", i + 1, "виконує роботи:", machine_jobs)    
+
+    iterations_job_swapping = int(input("Введіть кількість ітерацій переставляння робіт: "))
     iterations_pairwise_swapping = int(input("Введіть кількість ітерацій попарних переставлянь робіт: "))
     improved = True
 
@@ -227,6 +256,10 @@ def execute_lpt_with_job_and_pairwise_swapping(sorted_weights, m, n, u, t):
         machine_jobs = [job_index+1 for job_index, machine_index in enumerate(assigned_jobs) if machine_index == i]
         print("Машина", i + 1, "виконує роботи:", machine_jobs)
 
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print("\nЧас виконання алгоритму: ", execution_time ," секунд")       
+
     return assigned_jobs
 
 
@@ -235,7 +268,7 @@ def print_results_lpt_with_job_and_pairwise_swapping(assigned_jobs, u, t, m):
     max_machine_time = max([sum([t[job_index] for job_index, machine_index in enumerate(assigned_jobs) if machine_index == i]) for i in range(m)])
     average_time = sum([t[i] * u[i] for i in range(len(u))]) / sum(u)
 
-    print("\nЗагальний час роботи бригад (в годинах):", max_machine_time)
+    print("Загальний час роботи бригад (в годинах):", max_machine_time)
     print("Середній час перебування громадян без світла при виконанні LPT алгоритму з попарними перестановками робіт та перестановкою робіт з однієї машини на іншу:", average_time)
 
 
@@ -245,7 +278,7 @@ def print_results_lpt_with_job_and_pairwise_swapping(assigned_jobs, u, t, m):
 #sorted_weights = sort_weights(weights)
 def main():
     while True:
-        option = int(input("\nВиберіть опцію для розрахування даних за допомогою LPT алгоритму:\n1 - Виконання LPT алгоритму\n2 - Алгоритм LPT з перестановкою робіт з однієї машини на іншу\n3 - Алгоритм LPT з попарними перестановками робіт\n4 - Алгоритм LPT з попарними перестановками робіт та перестановкою робіт з однієї машини на іншу\n5 - Вийти з програми\n"))
+        option = int(input("Виберіть опцію для розрахування даних за допомогою LPT алгоритму:\n1 - Виконання LPT алгоритму\n2 - Алгоритм LPT з перестановкою робіт з однієї машини на іншу\n3 - Алгоритм LPT з попарними перестановками робіт\n4 - Алгоритм LPT з попарними перестановками робіт та перестановкою робіт з однієї машини на іншу\n5 - Вийти з програми\n"))
 
         if option == 1:
             # Виклик функцій
@@ -254,9 +287,10 @@ def main():
             sorted_weights = sort_weights(weights)
 
             # Виклик алгоритму
-            print("\nLPT алгоритм:")
+            print("LPT алгоритм:")
             assigned_jobs = execute_lpt(sorted_weights, m, n, u, t)
             print_results_lpt(assigned_jobs, u, t, m)
+            
         elif option == 2:
             # Виклик функцій
             m, n, u, t = input_data()
@@ -267,6 +301,8 @@ def main():
             print("\nLPT Алгоритм з переставлянням робіт:")
             assigned_jobs_with_job_swapping = execute_lpt_with_job_swapping(sorted_weights, m, n, u, t)
             print_results_lpt_with_job_swapping(assigned_jobs_with_job_swapping, u, t, m)
+
+
         elif option == 3:
             # Виклик функцій
             m, n, u, t = input_data()
