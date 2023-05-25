@@ -26,7 +26,13 @@ def find_job_ending_time(lpt_schedule, t): #час закінчення кожн
 
 def find_total_work_time(lpt_schedule, t):   
     t_end = find_job_ending_time(lpt_schedule, t)
-    total_work_time = max(max(t_end, key=max))
+    total_work_time = 0  
+
+    for row in t_end:
+        if row:  # Check if the row is not empty
+            current_max = max(row)  # Find the maximum element in the current row
+            total_work_time = max(total_work_time, current_max)  # Update total_work_time if necessary
+
     return total_work_time
 
 def find_average_time(lpt_schedule, t, u):
@@ -37,6 +43,8 @@ def find_average_time(lpt_schedule, t, u):
     return average_time
 
 def print_results_lpt(lpt_schedule, t, u):
+    print("Впорядковані t:", t)
+    print("Впорядковані u:", u)
     for i in range(len(lpt_schedule)):
         row = lpt_schedule[i]
         message = f"Машина {i + 1} виконує роботи: {row}"
@@ -46,7 +54,6 @@ def print_results_lpt(lpt_schedule, t, u):
         row = times_of_jobs[i]
         message = f"В машині {i + 1} часи виконання робіт такі: {row}"
         print(message)
-    print("Виведені t:", t)
-    print("Виведені u:", u)
+
     print("Загальний час роботи бригад (в годинах):", find_total_work_time(lpt_schedule, t))
     print("Середній час перебування громадян без світла:", find_average_time(lpt_schedule, t, u))

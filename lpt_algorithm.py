@@ -13,9 +13,9 @@ def calculate_weight(u, t):
 def sort_weights(weights, u, t):
     global sorted_weights
     zipped=list(zip(weights, u, t))
-    sorted_zipped = sorted(zipped, key = lambda x: x[0], reverse=True)
+    sorted_zipped = sorted(zipped, key = lambda x: x[0])
     sorted_weights, u, t = list(zip(*sorted_zipped))
-    print("sorted_weights =", ", ".join(f"{weight:.3f}" for weight in sorted_weights))
+    #print("sorted_weights:", ", ".join(f"{weight:.3f}" for weight in sorted_weights))
     return sorted_weights, u, t
 
 # Крок 4 - LPT алгоритм без модифікацій
@@ -26,8 +26,7 @@ def execute_lpt(sorted_weights, m, n, t): # видає масив
 
     lpt_schedule = [[0] * n for _ in range(m)] #остаточний розклад
 
-    for weight in sorted_weights: #призначає по порядку індекси машини для кожної роботи (0,1,2,2,0)
-        job_index = sorted_weights.index(weight)
+    for job_index in range(len(sorted_weights)): #призначає по порядку індекси машини для кожної роботи (0,1,2,2,0)
         machine_index = machines.index(min(machines))
         machines[machine_index] += t[job_index]
         assigned_jobs[job_index] = machine_index

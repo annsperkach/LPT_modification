@@ -38,14 +38,14 @@ def is_2nd_better(array1, array2, t, u):
 
 def execute_lpt_with_job_insertion(sorted_weights, m, n, t, u):
     lpt_schedule = execute_lpt(sorted_weights, m, n, t)  
-    print_results_lpt(lpt_schedule, t, u)
-    for row_index in range(len(lpt_schedule)):
-        for column_index in range(len(lpt_schedule[row_index]), -1, -1):
-            for next_row_index in range (len(lpt_schedule)-1, row_index +1, -1):
-                copy_schedule = copy.deepcopy(lpt_schedule)
-                copy_schedule = insert_job(copy_schedule, row_index, next_row_index, column_index)
-                if is_2nd_better(lpt_schedule, copy_schedule, t, u):
-                    lpt_schedule = copy.deepcopy(copy_schedule)
+    for row_index, row in enumerate(lpt_schedule):
+        for column_index in range(len(row), -1, -1):
+            for next_row_index in range(len(lpt_schedule)):
+                if(row_index!=next_row_index):
+                    copy_schedule = [list(r) for r in lpt_schedule]
+                    copy_schedule = insert_job(copy_schedule, row_index, next_row_index, column_index)
+                    if is_2nd_better(lpt_schedule, copy_schedule, t, u):
+                        lpt_schedule = [list(r) for r in copy_schedule]
 
 
     return lpt_schedule
