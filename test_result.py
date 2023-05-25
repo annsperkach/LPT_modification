@@ -46,5 +46,7 @@ def print_results_lpt(lpt_schedule, t, u):
         row = times_of_jobs[i]
         message = f"В машині {i + 1} часи виконання робіт такі: {row}"
         print(message)
+    print("Виведені t:", t)
+    print("Виведені u:", u)
     print("Загальний час роботи бригад (в годинах):", find_total_work_time(lpt_schedule, t))
     print("Середній час перебування громадян без світла:", find_average_time(lpt_schedule, t, u))

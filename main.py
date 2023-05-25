@@ -29,7 +29,7 @@ def main():
             end_time = time.time()
             execution_time = end_time - start_time
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
-            execution_times.append(execution_time)  # Додати час виконання до списку
+            execution_times.append([execution_time])  # Додати час виконання до списку
             
         elif option == 2:
             # Виклик функцій
@@ -46,7 +46,7 @@ def main():
             end_time = time.time()
             execution_time = end_time - start_time
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
-            execution_times.append(execution_time)  # Додати час виконання до списку
+            execution_times.append([execution_time])  # Додати час виконання до списку
 
         elif option == 3:
             # Виклик функцій
@@ -63,7 +63,7 @@ def main():
             end_time = time.time()
             execution_time = end_time - start_time
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
-            execution_times.append(execution_time)  # Додати час виконання до списку
+            execution_times.append([execution_time])  # Додати час виконання до списку
 
         elif option == 4:
             # Виклик функцій
@@ -79,7 +79,7 @@ def main():
             end_time = time.time()
             execution_time = end_time - start_time
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
-            execution_times.append(execution_time)  # Додати час виконання до списку
+            execution_times.append([execution_time])  # Додати час виконання до списку
 
         elif option == 5:
             # Виклик функції для виводу графіку

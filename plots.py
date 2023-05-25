@@ -2,28 +2,32 @@ import matplotlib.pyplot as plt
 
 def execution_time_plot(algorithms, execution_times):
     # Створення порівняльного графіку за часом виконання алгоритмів
-    plt.bar(algorithms, execution_times)
+    for i in range(len(algorithms)):
+       plt.bar(algorithms[i], execution_times[i])
     plt.xlabel('Алгоритм')
     plt.ylabel('Час виконання (секунди)')
     plt.title('Порівняння часу виконання алгоритмів LPT')
     plt.show()
 
-def diff_amount_m_plot(algorithm, execution_times):
+def diff_amount_m_plot(algorithms, execution_times):
     # Створення графіку за часом виконання алгоритму при зміні кількості машин
-    machines = list(range(1, len(execution_times) + 1))
-    plt.plot(machines, execution_times)
+    for i in range(len(algorithms)):
+        plt.plot(execution_times[i], label=algorithms[i])  # Перемістити аргументи у правильному порядку
     plt.xlabel('Кількість машин')
     plt.ylabel('Час виконання (секунди)')
-    plt.title(f'Залежність часу виконання алгоритму {algorithm} від кількості машин')
+    plt.title('Залежність часу виконання алгоритмів від кількості машин')
+    plt.legend()  # Додати легенду для алгоритмів
     plt.show()
 
-def diff_amount_n_plot(algorithm, execution_times):
+def diff_amount_n_plot(algorithms, execution_times):
     # Створення графіку за часом виконання алгоритму при зміні кількості робіт
     jobs = list(range(1, len(execution_times) + 1))
-    plt.plot(jobs, execution_times)
-    plt.xlabel('Кількість робіт')
+    for i in range(len(algorithms)):
+        plt.plot(execution_times[i], label=algorithms[i])  # Перемістити аргументи у правильному порядку
+    plt.xlabel('Кількість машин')
     plt.ylabel('Час виконання (секунди)')
-    plt.title(f'Залежність часу виконання алгоритму {algorithm} від кількості робіт')
+    plt.title('Залежність часу виконання алгоритмів від кількості машин')
+    plt.legend()  # Додати легенду для алгоритмів
     plt.show()
 
 def show_plots(algorithms, execution_times):
@@ -31,11 +35,9 @@ def show_plots(algorithms, execution_times):
   if option == 1:
         execution_time_plot(algorithms, execution_times)
   elif option == 2:
-        algorithm = input("Введіть назву алгоритму: ")
-        diff_amount_m_plot(algorithm, execution_times)
+        diff_amount_m_plot(algorithms, execution_times)
   elif option == 3:
-        algorithm = input("Введіть назву алгоритму: ")
-        diff_amount_n_plot(algorithm, execution_times)
+        diff_amount_n_plot(algorithms, execution_times)
   else:
         print("Невірний вибір опції!")
         return show_plots()
