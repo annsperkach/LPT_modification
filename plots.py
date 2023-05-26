@@ -60,7 +60,7 @@ def execute_algorithms_m():
 
         # Виведення графіка для поточного алгоритму
         plt.figure()
-        plt.plot(m_values, execution_times_algorithm)
+        plt.plot(m_values, execution_times_algorithm, 'o-')
         plt.xlabel('Значення m')
         plt.ylabel('Час виконання (секунди)')
         plt.title('Залежність часу виконання від кількості машин для {}'.format(algorithm['name']))
@@ -71,7 +71,7 @@ def execute_algorithms_m():
 def diff_amount_m_plot(algorithms, execution_times):
     # Створення графіку за часом виконання алгоритму при зміні кількості машин
     for i in range(len(algorithms)):
-        plt.plot(range(1, 21), execution_times[i], label=algorithms[i]['name'])
+        plt.plot(range(1, 21), execution_times[i], 'o-', label=algorithms[i]['name'])
     plt.xlabel('Значення m')
     plt.ylabel('Час виконання (секунди)')
     plt.title('Порівняльний графік часу виконання алгоритмів')
@@ -134,7 +134,7 @@ def execute_algorithms_n():
 
         # Виведення графіка для поточного алгоритму
         plt.figure()
-        plt.plot(n_values, execution_times_algorithm)
+        plt.plot(n_values, execution_times_algorithm, 'o-')  # Змінено на 'o-' для точок та ліній
         plt.xlabel('Значення n')
         plt.ylabel('Час виконання (секунди)')
         plt.title('Залежність часу виконання від кількості робіт для {}'.format(algorithm['name']))
@@ -145,7 +145,7 @@ def execute_algorithms_n():
 def diff_amount_n_plot(algorithms, execution_times):
     # Створення графіку за часом виконання алгоритму при зміні кількості робіт
     for i in range(len(algorithms)):
-        plt.plot(range(1, 21), execution_times[i], label=algorithms[i]['name'])
+        plt.plot(range(1, 21), execution_times[i], 'o-', label=algorithms[i]['name'])
     plt.xlabel('Кількість машин')
     plt.ylabel('Час виконання (секунди)')
     plt.title('Залежність часу виконання алгоритмів від кількості робіт')
