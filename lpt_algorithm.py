@@ -26,7 +26,11 @@ def execute_lpt(sorted_weights, m, n, t, u):
 
     lpt_schedule = [[] for _ in range(m)]   # остаточний розклад
 
+<<<<<<< HEAD
     for job_index in range(len(sorted_weights)):   # призначає по порядку індекси машини для кожної роботи (0,1,2,2,0)
+=======
+    for job_index in range(len(sorted_weights)): #призначає по порядку індекси машини для кожної роботи (0,1,2,2,0)
+>>>>>>> 5495527de865308987c3c4f43eab5a2ce0069921
         machine_index = machines.index(min(machines))
         machines[machine_index] += t[job_index]
         if job_index < n:  # перевірка, чи job_index не виходить за межі списку assigned_jobs

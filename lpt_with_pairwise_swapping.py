@@ -22,7 +22,11 @@ def swap_jobs(array, row_index1, row_index2, column_index_from_end):
 
 # Крок 8
 def execute_lpt_with_pairwise_swapping(sorted_weights, m, n, t, u):
+<<<<<<< HEAD
     lpt_schedule = execute_lpt(sorted_weights, m, n, t, u)  
+=======
+    lpt_schedule = execute_lpt(sorted_weights, m, n, t)  
+>>>>>>> 5495527de865308987c3c4f43eab5a2ce0069921
 
     for row_index, row in enumerate(lpt_schedule):
         for column_index in range(len(row), -1, -1):

@@ -3,7 +3,11 @@ from data import input_data
 from lpt_algorithm import calculate_weight, sort_weights, execute_lpt
 
 def find_times_of_jobs(lpt_schedule, t):
+<<<<<<< HEAD
     times_of_jobs = [[t[job_index - 1] if job_index > 0 else 0 for job_index in row] for row in lpt_schedule]
+=======
+    times_of_jobs = [[t[job_index - 1] for job_index in row] for row in lpt_schedule]
+>>>>>>> 5495527de865308987c3c4f43eab5a2ce0069921
     return times_of_jobs
 
 
