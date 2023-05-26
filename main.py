@@ -10,8 +10,6 @@ from lpt_with_job_and_pairwise_swapping import execute_lpt_with_job_and_pairwise
 def main():
     execution_times = []  # Зберігатиме часи виконання для кожного алгоритму
     accuracies = []  # Зберігатиме точності реалізацій алгоритмів
-    averages = []
-    totals = []
     algorithms = ['lpt', 'lpt with\n job insertion', 'lpt with \npairwise swapping', 'lpt with job\nand pairwise swapping']
 
     while True:
@@ -36,8 +34,6 @@ def main():
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
             execution_times.append([execution_time])  # Додати час виконання до списку
             accuracies.append([lpt_schedule])  # Додати час виконання до списку
-            averages.append([a])
-            totals.append([t])
             
         elif option == 2:
             # Виклик функцій
@@ -57,8 +53,6 @@ def main():
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
             execution_times.append([execution_time])  # Додати час виконання до списку
             accuracies.append([lpt_schedule])  # Додати час виконання до списку
-            averages.append([a])
-            totals.append([t])
 
         elif option == 3:
             # Виклик функцій
@@ -77,8 +71,6 @@ def main():
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
             execution_times.append([execution_time])  # Додати час виконання до списку
             accuracies.append([lpt_schedule])  # Додати час виконання до списку
-            averages.append([a])
-            totals.append([t])
 
         elif option == 4:
             # Виклик функцій
@@ -97,8 +89,6 @@ def main():
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
             execution_times.append([execution_time])  # Додати час виконання до списку
             accuracies.append([lpt_schedule])  # Додати час виконання до списку
-            averages.append([a])
-            totals.append([t])
 
         elif option == 5:
             # Виклик функції для виводу графіку

@@ -44,9 +44,9 @@ def execute_algorithms_m():
 
         option = int(input("Введіть опцію для введення даних (1 - статично, 2 - згенерувати рандомом, 3 - ввести дані вручну, 4 - зчитування з файлу): "))
         m, n, u, t = input_data(option)
-        start_time = time.time()
         for m in range(1, 21):  # Виконати 20 разів з різними значеннями m
             # Виклик функцій та вимірювання часу виконання
+            start_time = time.time()
             weights = calculate_weight(u, t)
             sorted_weights, u, t = sort_weights(weights, u, t)
             lpt_schedule = algorithm['function'](sorted_weights, m, n, t, u)
