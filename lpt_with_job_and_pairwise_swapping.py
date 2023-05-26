@@ -9,12 +9,10 @@ from lpt_with_pairwise_swapping import swap_jobs, execute_lpt_with_pairwise_swap
 
 
 def execute_lpt_with_job_and_pairwise_swapping(sorted_weights, m, n, t, u):
-<<<<<<< HEAD
     lpt_schedule = execute_lpt(sorted_weights, m, n, t, u)  
     print("\nПопередні результати:")
     print_results_lpt(lpt_schedule, t, u)
-=======
-    lpt_schedule = execute_lpt(sorted_weights, m, n, t)
+    lpt_schedule = execute_lpt(sorted_weights, m, n, t, u)
     for row_index, row in enumerate(lpt_schedule):
         for column_index in range(len(row), -1, -1):
             for next_row_index in range(len(lpt_schedule)):
@@ -35,8 +33,6 @@ def execute_lpt_with_job_and_pairwise_swapping(sorted_weights, m, n, t, u):
                         copy_schedule = insert_job(copy_schedule, row_index, next_row_index, column_index)
                         if is_2nd_better(lpt_schedule, copy_schedule, t, u):
                             lpt_schedule = [list(r) for r in copy_schedule]
->>>>>>> 5495527de865308987c3c4f43eab5a2ce0069921
-
 
     return lpt_schedule
 

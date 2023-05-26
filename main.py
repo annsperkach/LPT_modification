@@ -9,12 +9,9 @@ from lpt_with_job_and_pairwise_swapping import execute_lpt_with_job_and_pairwise
 
 def main():
     execution_times = []  # Зберігатиме часи виконання для кожного алгоритму
-<<<<<<< HEAD
     accuracies = []  # Зберігатиме точності реалізацій алгоритмів
-=======
     averages = []
     totals = []
->>>>>>> 5495527de865308987c3c4f43eab5a2ce0069921
     algorithms = ['lpt', 'lpt with\n job insertion', 'lpt with \npairwise swapping', 'lpt with job\nand pairwise swapping']
 
     while True:
@@ -30,23 +27,17 @@ def main():
 
             # Виклик алгоритму
             print("LPT алгоритм:")
-<<<<<<< HEAD
             lpt_schedule =execute_lpt(sorted_weights, m, n, t, u)
             print_results_lpt(lpt_schedule, t, u)
-=======
-            lpt_schedule =execute_lpt(sorted_weights, m, n, t)
+            lpt_schedule =execute_lpt(sorted_weights, m, n, t, u)
             t, a = print_results_lpt(lpt_schedule, t, u)
->>>>>>> 5495527de865308987c3c4f43eab5a2ce0069921
             end_time = time.time()
             execution_time = end_time - start_time
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
             execution_times.append([execution_time])  # Додати час виконання до списку
-<<<<<<< HEAD
             accuracies.append([lpt_schedule])  # Додати час виконання до списку
-=======
             averages.append([a])
             totals.append([t])
->>>>>>> 5495527de865308987c3c4f43eab5a2ce0069921
             
         elif option == 2:
             # Виклик функцій
@@ -65,12 +56,9 @@ def main():
             execution_time = end_time - start_time
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
             execution_times.append([execution_time])  # Додати час виконання до списку
-<<<<<<< HEAD
             accuracies.append([lpt_schedule])  # Додати час виконання до списку
-=======
             averages.append([a])
             totals.append([t])
->>>>>>> 5495527de865308987c3c4f43eab5a2ce0069921
 
         elif option == 3:
             # Виклик функцій
@@ -88,12 +76,9 @@ def main():
             execution_time = end_time - start_time
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
             execution_times.append([execution_time])  # Додати час виконання до списку
-<<<<<<< HEAD
             accuracies.append([lpt_schedule])  # Додати час виконання до списку
-=======
             averages.append([a])
             totals.append([t])
->>>>>>> 5495527de865308987c3c4f43eab5a2ce0069921
 
         elif option == 4:
             # Виклик функцій
@@ -111,12 +96,9 @@ def main():
             execution_time = end_time - start_time
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
             execution_times.append([execution_time])  # Додати час виконання до списку
-<<<<<<< HEAD
             accuracies.append([lpt_schedule])  # Додати час виконання до списку
-=======
             averages.append([a])
             totals.append([t])
->>>>>>> 5495527de865308987c3c4f43eab5a2ce0069921
 
         elif option == 5:
             # Виклик функції для виводу графіку

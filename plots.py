@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import time
-from data import input_data
+from data import input_data, read_data_from_file
 from lpt_algorithm import calculate_weight, sort_weights, execute_lpt
 from test_result import find_times_of_jobs, find_u_of_jobs, find_job_ending_time, find_total_work_time, find_average_time, print_results_lpt
 from lpt_with_job_insertion import insert_job, execute_lpt_with_job_insertion, is_2nd_better
@@ -41,7 +41,8 @@ def execute_algorithms_m():
         execution_times_algorithm = []  # Список для збереження часу виконання для поточного алгоритму
         m_values = []  # Список для збереження значень m
 
-        m, n, u, t = input_data()
+        option = int(input("Введіть опцію для введення даних (1 - статично, 2 - згенерувати рандомом, 3 - ввести дані вручну, 4 - зчитування з файлу): "))
+        m, n, u, t = input_data(option)
         start_time = time.time()
         for m in range(1, 21):  # Виконати 20 разів з різними значеннями m
             # Виклик функцій та вимірювання часу виконання

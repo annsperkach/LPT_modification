@@ -39,7 +39,6 @@ def is_2nd_better(array1, array2, t, u):
     relative_average_time = average_time_difference / min_average_time
 
     result = relative_average_time + relative_total_time
-<<<<<<< HEAD
     if result < 0:
         return True
     else:
@@ -55,13 +54,12 @@ def execute_lpt_with_job_insertion(sorted_weights, m, n, t, u):
                 copy_schedule = insert_job(copy_schedule, row_index, next_row_index, column_index)
                 if is_2nd_better(lpt_schedule, copy_schedule, t, u):
                     lpt_schedule = copy.deepcopy(copy_schedule)
-=======
 
     return result < 0
 
 
 def execute_lpt_with_job_insertion(sorted_weights, m, n, t, u):
-    lpt_schedule = execute_lpt(sorted_weights, m, n, t)  
+    lpt_schedule = execute_lpt(sorted_weights, m, n, t, u)  
     for row_index, row in enumerate(lpt_schedule):
         for column_index in range(len(row), -1, -1):
             for next_row_index in range(len(lpt_schedule)):
@@ -70,7 +68,5 @@ def execute_lpt_with_job_insertion(sorted_weights, m, n, t, u):
                     copy_schedule = insert_job(copy_schedule, row_index, next_row_index, column_index)
                     if is_2nd_better(lpt_schedule, copy_schedule, t, u):
                         lpt_schedule = [list(r) for r in copy_schedule]
->>>>>>> 5495527de865308987c3c4f43eab5a2ce0069921
-
 
     return lpt_schedule
