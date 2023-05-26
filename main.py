@@ -9,6 +9,8 @@ from lpt_with_job_and_pairwise_swapping import execute_lpt_with_job_and_pairwise
 
 def main():
     execution_times = []  # Зберігатиме часи виконання для кожного алгоритму
+    averages = []
+    totals = []
     algorithms = ['lpt', 'lpt with\n job insertion', 'lpt with \npairwise swapping', 'lpt with job\nand pairwise swapping']
 
     while True:
@@ -16,8 +18,8 @@ def main():
 
         if option == 1:
             # Виклик функцій
-
-            m, n, u, t = input_data()
+            option = int(input("Введіть опцію для введення даних (1 - статично, 2 - згенерувати рандомом, 3 - ввести дані вручну, 4 - зчитування з файлу): "))
+            m, n, u, t = input_data(option)
             start_time = time.time()
             weights = calculate_weight(u, t)
             sorted_weights, u, t = sort_weights(weights, u, t)
@@ -25,15 +27,18 @@ def main():
             # Виклик алгоритму
             print("LPT алгоритм:")
             lpt_schedule =execute_lpt(sorted_weights, m, n, t)
-            print_results_lpt(lpt_schedule, t, u)
+            t, a = print_results_lpt(lpt_schedule, t, u)
             end_time = time.time()
             execution_time = end_time - start_time
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
             execution_times.append([execution_time])  # Додати час виконання до списку
+            averages.append([a])
+            totals.append([t])
             
         elif option == 2:
             # Виклик функцій
-            m, n, u, t = input_data()
+            option = int(input("Введіть опцію для введення даних (1 - статично, 2 - згенерувати рандомом, 3 - ввести дані вручну, 4 - зчитування з файлу): "))
+            m, n, u, t = input_data(option)
             start_time = time.time()
             weights = calculate_weight(u, t)
             sorted_weights, u, t = sort_weights(weights, u, t)
@@ -42,16 +47,18 @@ def main():
             # Виклик алгоритму
             print("\nLPT Алгоритм з вставленням робіт:")
             lpt_schedule =execute_lpt_with_job_insertion(sorted_weights, m, n, t, u)
-            print_results_lpt(lpt_schedule, t, u)
+            t, a = print_results_lpt(lpt_schedule, t, u)
             end_time = time.time()
             execution_time = end_time - start_time
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
             execution_times.append([execution_time])  # Додати час виконання до списку
+            averages.append([a])
+            totals.append([t])
 
         elif option == 3:
             # Виклик функцій
-
-            m, n, u, t = input_data()
+            option = int(input("Введіть опцію для введення даних (1 - статично, 2 - згенерувати рандомом, 3 - ввести дані вручну, 4 - зчитування з файлу): "))
+            m, n, u, t = input_data(option)
             start_time = time.time()
             weights = calculate_weight(u, t)
             sorted_weights, u, t = sort_weights(weights, u, t)
@@ -59,15 +66,18 @@ def main():
             # Виклик алгоритму
             print("LPT алгоритм з попарним переставлянням робіт:")
             lpt_schedule =execute_lpt_with_pairwise_swapping(sorted_weights, m, n, t, u)
-            print_results_lpt(lpt_schedule, t, u)
+            t, a = print_results_lpt(lpt_schedule, t, u)
             end_time = time.time()
             execution_time = end_time - start_time
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
             execution_times.append([execution_time])  # Додати час виконання до списку
+            averages.append([a])
+            totals.append([t])
 
         elif option == 4:
             # Виклик функцій
-            m, n, u, t = input_data()
+            option = int(input("Введіть опцію для введення даних (1 - статично, 2 - згенерувати рандомом, 3 - ввести дані вручну, 4 - зчитування з файлу): "))
+            m, n, u, t = input_data(option)
             start_time = time.time()
             weights = calculate_weight(u, t)
             sorted_weights, u, t = sort_weights(weights, u, t)
@@ -75,11 +85,13 @@ def main():
             # Виклик алгоритму
             print("\nLPT Алгоритм з переставлянням робіт і попарним переставлянням робіт:")
             lpt_schedule =execute_lpt_with_job_and_pairwise_swapping(sorted_weights, m, n, t, u)
-            print_results_lpt(lpt_schedule, t, u)
+            t, a = print_results_lpt(lpt_schedule, t, u)
             end_time = time.time()
             execution_time = end_time - start_time
             print("\nЧас виконання алгоритму: ", execution_time ," секунд") 
             execution_times.append([execution_time])  # Додати час виконання до списку
+            averages.append([a])
+            totals.append([t])
 
         elif option == 5:
             # Виклик функції для виводу графіку
