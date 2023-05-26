@@ -7,7 +7,7 @@ from lpt_with_pairwise_swapping import swap_jobs, execute_lpt_with_pairwise_swap
 
 # Крок 10
 def execute_lpt_with_job_and_pairwise_swapping(sorted_weights, m, n, t, u):
-    lpt_schedule = execute_lpt(sorted_weights, m, n, t)  
+    lpt_schedule = execute_lpt(sorted_weights, m, n, t, u)  
     print("\nПопередні результати:")
     print_results_lpt(lpt_schedule, t, u)
 

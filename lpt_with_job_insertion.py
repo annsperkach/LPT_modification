@@ -24,6 +24,9 @@ def is_2nd_better(array1, array2, t, u):
     total_work_time2 = find_total_work_time(array2, t)
     average_time2 = find_average_time(array2, t, u)
 
+    if total_work_time1 == 0 or total_work_time2 == 0:
+        return True
+
     total_time_difference = total_work_time2 - total_work_time1
     average_time_difference = average_time2 - average_time1
 
@@ -33,11 +36,11 @@ def is_2nd_better(array1, array2, t, u):
     result = relative_average_time + relative_total_time
     if result < 0:
         return True
-    else: 
+    else:
         return False
 
 def execute_lpt_with_job_insertion(sorted_weights, m, n, t, u):
-    lpt_schedule = execute_lpt(sorted_weights, m, n, t)  
+    lpt_schedule = execute_lpt(sorted_weights, m, n, t, u)  
     print_results_lpt(lpt_schedule, t, u)
     for row_index in range(len(lpt_schedule)):
         for column_index in range(len(lpt_schedule[row_index]), -1, -1):

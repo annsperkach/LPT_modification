@@ -1,4 +1,11 @@
 import matplotlib.pyplot as plt
+import time
+from data import input_data
+from lpt_algorithm import calculate_weight, sort_weights, execute_lpt
+from test_result import find_times_of_jobs, find_u_of_jobs, find_job_ending_time, find_total_work_time, find_average_time, print_results_lpt
+from lpt_with_job_insertion import insert_job, execute_lpt_with_job_insertion, is_2nd_better
+from lpt_with_pairwise_swapping import swap_jobs, execute_lpt_with_pairwise_swapping    
+from lpt_with_job_and_pairwise_swapping import execute_lpt_with_job_and_pairwise_swapping
 
 def execution_time_plot(algorithms, execution_times):
     # Створення порівняльного графіку за часом виконання алгоритмів
@@ -9,24 +16,124 @@ def execution_time_plot(algorithms, execution_times):
     plt.title('Порівняння часу виконання алгоритмів LPT')
     plt.show()
 
+def execute_algorithms_m():
+    execution_times = []  # Список для збереження часу виконання
+    algorithms = [
+        {
+            'name': 'LPT алгоритм',
+            'function': execute_lpt
+        },
+        {
+            'name': 'LPT алгоритм з вставленням робіт',
+            'function': execute_lpt_with_job_insertion
+        },
+        {
+            'name': 'LPT алгоритм з попарним переставлянням робіт',
+            'function': execute_lpt_with_pairwise_swapping
+        },
+        {
+            'name': 'LPT алгоритм з переставлянням робіт і попарним переставлянням робіт',
+            'function': execute_lpt_with_job_and_pairwise_swapping
+        }
+    ]
+
+    for algorithm in algorithms:
+        execution_times_algorithm = []  # Список для збереження часу виконання для поточного алгоритму
+        m_values = []  # Список для збереження значень m
+
+        m, n, u, t = input_data()
+        start_time = time.time()
+        for m in range(1, 21):  # Виконати 20 разів з різними значеннями m
+            # Виклик функцій та вимірювання часу виконання
+            weights = calculate_weight(u, t)
+            sorted_weights, u, t = sort_weights(weights, u, t)
+            lpt_schedule = algorithm['function'](sorted_weights, m, n, t, u)
+            end_time = time.time()
+            execution_time = end_time - start_time
+
+            execution_times_algorithm.append(execution_time)  # Додати час виконання до списку
+            m_values.append(m)  # Додати значення m до списку
+
+        execution_times.append(execution_times_algorithm)  # Додати список часу виконання до загального списку
+
+        # Виведення графіка для поточного алгоритму
+        plt.figure()
+        plt.plot(m_values, execution_times_algorithm)
+        plt.xlabel('Значення m')
+        plt.ylabel('Час виконання (секунди)')
+        plt.title('Залежність часу виконання від кількості машин для {}'.format(algorithm['name']))
+        plt.show()
+
+    return algorithms, execution_times
+
 def diff_amount_m_plot(algorithms, execution_times):
     # Створення графіку за часом виконання алгоритму при зміні кількості машин
     for i in range(len(algorithms)):
-        plt.plot(execution_times[i], label=algorithms[i])  # Перемістити аргументи у правильному порядку
-    plt.xlabel('Кількість машин')
+        plt.plot(range(1, 21), execution_times[i], label=algorithms[i]['name'])
+    plt.xlabel('Значення m')
     plt.ylabel('Час виконання (секунди)')
-    plt.title('Залежність часу виконання алгоритмів від кількості машин')
+    plt.title('Порівняльний графік часу виконання алгоритмів')
     plt.legend()  # Додати легенду для алгоритмів
     plt.show()
 
+
+def execute_algorithms_n():
+    execution_times = []  # Список для збереження часу виконання
+    algorithms = [
+        {
+            'name': 'LPT алгоритм',
+            'function': execute_lpt
+        },
+        {
+            'name': 'LPT алгоритм з вставленням робіт',
+            'function': execute_lpt_with_job_insertion
+        },
+        {
+            'name': 'LPT алгоритм з попарним переставлянням робіт',
+            'function': execute_lpt_with_pairwise_swapping
+        },
+        {
+            'name': 'LPT алгоритм з переставлянням робіт і попарним переставлянням робіт',
+            'function': execute_lpt_with_job_and_pairwise_swapping
+        }
+    ]
+
+    for algorithm in algorithms:
+        execution_times_algorithm = []  # Список для збереження часу виконання для поточного алгоритму
+        n_values = []  # Список для збереження значень n
+
+        m, _, u, t = input_data()  # Змінено змінну n на _
+        for n in range(1, 21):  # Виконати 20 разів з різними значеннями n
+            # Виклик функцій та вимірювання часу виконання
+            start_time = time.time()
+            weights = calculate_weight(u, t)
+            sorted_weights, u, t = sort_weights(weights, u, t)
+            lpt_schedule = algorithm['function'](sorted_weights, m, n, t, u)
+            end_time = time.time()
+            execution_time = end_time - start_time
+
+            execution_times_algorithm.append(execution_time)  # Додати час виконання до списку
+            n_values.append(n)  # Додати значення n до списку
+
+        execution_times.append(execution_times_algorithm)  # Додати список часу виконання до загального списку
+
+        # Виведення графіка для поточного алгоритму
+        plt.figure()
+        plt.plot(n_values, execution_times_algorithm)
+        plt.xlabel('Значення n')
+        plt.ylabel('Час виконання (секунди)')
+        plt.title('Залежність часу виконання від кількості робіт для {}'.format(algorithm['name']))
+        plt.show()
+
+    return algorithms, execution_times
+
 def diff_amount_n_plot(algorithms, execution_times):
     # Створення графіку за часом виконання алгоритму при зміні кількості робіт
-    jobs = list(range(1, len(execution_times) + 1))
     for i in range(len(algorithms)):
-        plt.plot(execution_times[i], label=algorithms[i])  # Перемістити аргументи у правильному порядку
+        plt.plot(range(1, 21), execution_times[i], label=algorithms[i]['name'])
     plt.xlabel('Кількість машин')
     plt.ylabel('Час виконання (секунди)')
-    plt.title('Залежність часу виконання алгоритмів від кількості машин')
+    plt.title('Залежність часу виконання алгоритмів від кількості робіт')
     plt.legend()  # Додати легенду для алгоритмів
     plt.show()
 
@@ -35,8 +142,10 @@ def show_plots(algorithms, execution_times):
   if option == 1:
         execution_time_plot(algorithms, execution_times)
   elif option == 2:
+        algorithms, execution_times = execute_algorithms_m()
         diff_amount_m_plot(algorithms, execution_times)
   elif option == 3:
+        algorithms, execution_times = execute_algorithms_n()
         diff_amount_n_plot(algorithms, execution_times)
   else:
         print("Невірний вибір опції!")
