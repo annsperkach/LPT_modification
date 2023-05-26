@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import time
+import random
 from data import input_data, read_data_from_file
 from lpt_algorithm import calculate_weight, sort_weights, execute_lpt
 from test_result import find_times_of_jobs, find_u_of_jobs, find_job_ending_time, find_total_work_time, find_average_time, print_results_lpt
@@ -99,12 +100,25 @@ def execute_algorithms_n():
         }
     ]
 
+    
+
     for algorithm in algorithms:
         execution_times_algorithm = []  # Список для збереження часу виконання для поточного алгоритму
         n_values = []  # Список для збереження значень n
+        option = int(input("Введіть опцію для введення даних (1 - статично, 2 - згенерувати рандомом, 3 - ввести дані вручну, 4 - зчитування з файлу): "))
+        m, n, u, t = input_data(option)  # Приймати значення m, n, u, t з функції input_data(option)
 
-        m, _, u, t = input_data()  # Змінено змінну n на _
-        for n in range(1, 21):  # Виконати 20 разів з різними значеннями n
+        for n in range(1, 21):
+            t = list(t)  # Перетворити кортеж t на список
+            u = list(u)
+            if n > len(t):  # Якщо n більше поточної довжини t, додати додаткові значення t і u
+                extra_t = [random.randint(1, 15) for _ in range(n - len(t))]
+                extra_u = [random.randint(1, 100) for _ in range(n - len(t))]
+                t.extend(extra_t)
+                u.extend(extra_u)
+            t = tuple(t)  # Перетворити список t на кортеж знову
+            u = tuple(u)
+
             # Виклик функцій та вимірювання часу виконання
             start_time = time.time()
             weights = calculate_weight(u, t)
