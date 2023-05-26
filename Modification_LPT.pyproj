@@ -11,6 +11,7 @@
     <OutputPath>.</OutputPath>
     <Name>Modification_LPT</Name>
     <RootNamespace>Modification_LPT</RootNamespace>
+    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>

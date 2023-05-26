@@ -1,7 +1,6 @@
-import copy
 from data import input_data
 from lpt_algorithm import calculate_weight, sort_weights, execute_lpt
-from test_result import find_times_of_jobs, find_u_of_jobs, find_job_ending_time, find_total_work_time, find_average_time, print_results_lpt
+from test_result import find_total_work_time, find_average_time, print_results_lpt
 
 def insert_job(array, row_index_from, row_index_to, column_index_from_end):
     array_copy = [row[:] for row in array]  # Create a shallow copy of the array
@@ -36,20 +35,17 @@ def is_2nd_better(array1, array2, t, u):
     relative_average_time = average_time_difference / min_average_time
 
     result = relative_average_time + relative_total_time
-
     return result < 0
 
 
 def execute_lpt_with_job_insertion(sorted_weights, m, n, t, u):
-    lpt_schedule = execute_lpt(sorted_weights, m, n, t)  
+    lpt_schedule = execute_lpt(sorted_weights, m, n, t, u)  
     for row_index, row in enumerate(lpt_schedule):
         for column_index in range(len(row), -1, -1):
-            for next_row_index in range(len(lpt_schedule)):
-                if(row_index!=next_row_index):
-                    copy_schedule = [list(r) for r in lpt_schedule]
-                    copy_schedule = insert_job(copy_schedule, row_index, next_row_index, column_index)
-                    if is_2nd_better(lpt_schedule, copy_schedule, t, u):
-                        lpt_schedule = [list(r) for r in copy_schedule]
-
+            for next_row_index in range(row_index + 1, len(lpt_schedule)):
+                copy_schedule = [list(r) for r in lpt_schedule]
+                copy_schedule = insert_job(copy_schedule, row_index, next_row_index, column_index)
+                if is_2nd_better(lpt_schedule, copy_schedule, t, u):
+                    lpt_schedule = [list(r) for r in copy_schedule]
 
     return lpt_schedule
